@@ -23,7 +23,6 @@ protected void Update()
 
 public override void OnUse()
 {
-        //TODO: we need to determine if we can fire and if so, make the thing
         base.OnUse();
         FireNow();
 }
@@ -41,6 +40,5 @@ public void FireNow()
 
             timer = 0;
         }
-    //TODO: this is where we would actually create the thing and get it on its way
     }
 }

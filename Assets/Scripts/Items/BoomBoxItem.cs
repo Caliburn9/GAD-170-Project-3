@@ -11,39 +11,35 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class BoomBoxItem : InteractiveItem
 {
-    //TODO: you will need more data than this, like clips to play and a way to know which clip is playing
     protected AudioSource audioSource;
     [SerializeField] AudioClip[] audios;
     int song = -1;
     bool isUsed = false;
 
 protected override void Start()
-{
-        base.Start();
+    {
+       base.Start();
         
         //Retrieve the data from the AudioSource component and create an array for the attached clips
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = audios[0];
-
-
-    //TODO; prep the boom box
-}
+    }
 
 public void PlayClip()
-{
+    {
         //Play a current song in the array
         audioSource.clip = audios[song];
         audioSource.Play();
-}
+    }
 
 private void Update()
-{
-        //If the boombox is playing and interacted with, the next audioclip attached is played
+    {
+        //If the boombox is not playing and interacted with, the next audioclip attached is played
         if (!audioSource.isPlaying && isUsed)
         {
             song++;
-            
-            //If the last audioclip is played, then the first clip is played again
+
+            //If the last audioclip is played, then the current clip is reset to the first
             if (song > audios.Length - 1)
             {
                 song = 0;
@@ -51,11 +47,10 @@ private void Update()
 
             PlayClip();
         }
-    //TODO; this is where you might want to setup and ensure the desire clip is playing on the source
-}
+    }
 
 public override void OnUse()
-{
+    {
         base.OnUse();
         //Return true if boombox object is used
         isUsed = true;
@@ -73,7 +68,5 @@ public override void OnUse()
             song = 0;
             isUsed = false;
         }
-
-    //TODO; this where we need to go to next track and start and stop playing
-    }
+     }
 }
